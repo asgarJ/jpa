@@ -1,9 +1,7 @@
 package com.javacodegeeks.ultimate;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,6 +26,7 @@ public class App
             entityManager = factory.createEntityManager();
             persistPerson(entityManager);
             persistGeek(entityManager);
+            printResults(entityManager);
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
             e.printStackTrace();
@@ -76,10 +75,25 @@ public class App
             entityManager.persist(geek);
             transaction.commit();
         } catch (Exception e) {
-
-        } finally {
             if (transaction.isActive())
                 transaction.rollback();
+        }
+    }
+
+    private void printResults(EntityManager entityManager) {
+        try {
+            TypedQuery<Person> query = entityManager.createQuery("from Person", Person.class);
+            List<Person> persons = query.getResultList();
+            for (Person person: persons) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(person.getFirstName()).append(" ").append(person.getLastName());
+                if (person instanceof Geek) {
+                    sb.append(" ").append(((Geek) person).getFavouriteProgrammingLanguage());
+                }
+                LOGGER.info(sb.toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
