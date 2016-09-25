@@ -14,6 +14,7 @@ public class Project {
     private Long id;
     private String title;
     private List<Geek> geeks = new ArrayList<>();
+    private Period projectPeriod;
 
     @Id
     @GeneratedValue
@@ -45,5 +46,14 @@ public class Project {
 
     public void setGeeks(List<Geek> geeks) {
         this.geeks = geeks;
+    }
+
+    @Embedded
+    public Period getProjectPeriod() {
+        return projectPeriod;
+    }
+
+    public void setProjectPeriod(Period projectPeriod) {
+        this.projectPeriod = projectPeriod;
     }
 }
