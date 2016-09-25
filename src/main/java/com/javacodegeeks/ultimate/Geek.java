@@ -23,10 +23,10 @@ public class Geek extends Person {
     }
 
     @ManyToMany(mappedBy = "geeks")
-    @JoinTable(
-            name="T_GEEK_PROJECT",
-            joinColumns={@JoinColumn(name = "GEEK_ID", referencedColumnName = "ID")},
-            inverseJoinColumns={@JoinColumn(name="PROJECT_ID",referencedColumnName="ID")})
+//    @JoinTable(
+//            name="T_GEEK_PROJECT",
+//            joinColumns={@JoinColumn(name = "GEEK_ID", referencedColumnName = "ID")},
+//            inverseJoinColumns={@JoinColumn(name="PROJECT_ID",referencedColumnName="ID")})
     public List<Project> getProjects() {
         return projects;
     }

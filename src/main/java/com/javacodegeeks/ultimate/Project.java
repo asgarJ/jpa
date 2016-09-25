@@ -34,7 +34,7 @@ public class Project {
         this.title = title;
     }
 
-    @ManyToMany(mappedBy = "projects")
+    @ManyToMany
     @JoinTable(
             name="T_GEEK_PROJECT",
             joinColumns={@JoinColumn(name="PROJECT_ID", referencedColumnName="ID")},
