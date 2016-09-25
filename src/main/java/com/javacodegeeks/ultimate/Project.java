@@ -15,6 +15,11 @@ public class Project {
     private String title;
     private List<Geek> geeks = new ArrayList<>();
     private Period projectPeriod;
+    private ProjectType projectType;
+
+    public enum ProjectType {
+        FIXED, TIME_AND_MATERIAL;
+    }
 
     @Id
     @GeneratedValue
@@ -55,5 +60,14 @@ public class Project {
 
     public void setProjectPeriod(Period projectPeriod) {
         this.projectPeriod = projectPeriod;
+    }
+
+    @Enumerated(EnumType.ORDINAL)
+    public ProjectType getProjectType() {
+        return projectType;
+    }
+
+    public void setProjectType(ProjectType projectType) {
+        this.projectType = projectType;
     }
 }
