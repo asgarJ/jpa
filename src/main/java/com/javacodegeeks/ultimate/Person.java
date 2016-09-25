@@ -12,6 +12,7 @@ public class Person {
     private Long id;
     private String firstName;
     private String lastName;
+    private IdCard idCard;
 
     @Id
     @GeneratedValue
@@ -37,5 +38,15 @@ public class Person {
     }
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "ID_CARD_ID")
+    public IdCard getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(IdCard idCard) {
+        this.idCard = idCard;
     }
 }
