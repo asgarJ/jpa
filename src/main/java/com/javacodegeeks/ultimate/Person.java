@@ -11,14 +11,19 @@ import java.util.List;
 @Table(name = "T_PERSON")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Person {
-    private Long id;
-    private String firstName;
-    private String lastName;
-    private IdCard idCard;
-    private List<Phone> phones = new ArrayList<>();
-
     @Id
     @GeneratedValue
+    private Long id;
+    @Column(name = "FIRST_NAME", length = 100, nullable = false, unique = false)
+    private String firstName;
+    @Column(name = "LAST_NAME")
+    private String lastName;
+    @OneToOne
+    @JoinColumn(name = "ID_CARD_ID")
+    private IdCard idCard;
+    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY)
+    private List<Phone> phones = new ArrayList<>();
+
     public Long getId() {
         return id;
     }
@@ -26,7 +31,7 @@ public class Person {
     public void setId(Long id) {
         this.id = id;
     }
-    @Column(name = "FIRST_NAME", length = 100, nullable = false, unique = false)
+
     public String getFirstName() {
         return firstName;
     }
@@ -35,16 +40,14 @@ public class Person {
         this.firstName = firstName;
     }
 
-    @Column(name = "LAST_NAME")
     public String getLastName() {
         return lastName;
     }
+
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    @OneToOne
-    @JoinColumn(name = "ID_CARD_ID")
     public IdCard getIdCard() {
         return idCard;
     }
@@ -53,7 +56,6 @@ public class Person {
         this.idCard = idCard;
     }
 
-    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY)
     public List<Phone> getPhones() {
         return phones;
     }

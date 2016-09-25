@@ -9,6 +9,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "T_GEEK")
+@Access(AccessType.PROPERTY)
 public class Geek extends Person {
     private String favouriteProgrammingLanguage;
     private List<Project> projects = new ArrayList<>();
