@@ -1,8 +1,6 @@
-package com.javacodegeeks.ultimate;
+package com.javacodegeeks.ultimate.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +9,10 @@ import java.util.List;
  */
 @Entity
 @Table(name = "T_GEEK")
+@Access(AccessType.PROPERTY)
 public class Geek extends Person {
     private String favouriteProgrammingLanguage;
-    private List<String> projects = new ArrayList<String>();
+    private List<Project> projects = new ArrayList<>();
 
     @Column(name = "FAV_PROG_LANG")
     public String getFavouriteProgrammingLanguage() {
@@ -22,5 +21,14 @@ public class Geek extends Person {
 
     public void setFavouriteProgrammingLanguage(String favouriteProgrammingLanguage) {
         this.favouriteProgrammingLanguage = favouriteProgrammingLanguage;
+    }
+
+    @ManyToMany(mappedBy = "geeks")
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
     }
 }
