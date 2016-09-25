@@ -1,4 +1,4 @@
-package com.javacodegeeks.ultimate;
+package com.javacodegeeks.ultimate.entities;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

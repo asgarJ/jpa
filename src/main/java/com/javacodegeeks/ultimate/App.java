@@ -1,5 +1,9 @@
 package com.javacodegeeks.ultimate;
 
+import com.javacodegeeks.ultimate.entities.Geek;
+import com.javacodegeeks.ultimate.entities.Person;
+import com.javacodegeeks.ultimate.entities.Project;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.logging.Level;

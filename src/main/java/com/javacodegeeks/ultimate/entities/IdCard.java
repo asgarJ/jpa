@@ -1,4 +1,4 @@
-package com.javacodegeeks.ultimate;
+package com.javacodegeeks.ultimate.entities;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,6 +13,7 @@ public class IdCard {
     private Long id;
     private String idNumber;
     private Date issueDate;
+    private boolean valid;
 
     @Id
     @GeneratedValue
@@ -41,5 +42,15 @@ public class IdCard {
 
     public void setIssueDate(Date issueDate) {
         this.issueDate = issueDate;
+    }
+
+    @Column(name = "VALID")
+    @Convert(converter = BooleanConverter.class)
+    public boolean isValid() {
+        return valid;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
     }
 }
