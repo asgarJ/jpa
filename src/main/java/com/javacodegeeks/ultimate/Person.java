@@ -1,6 +1,8 @@
 package com.javacodegeeks.ultimate;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by asgar on 9/24/16.
@@ -13,6 +15,7 @@ public class Person {
     private String firstName;
     private String lastName;
     private IdCard idCard;
+    private List<Phone> phones = new ArrayList<>();
 
     @Id
     @GeneratedValue
@@ -48,5 +51,14 @@ public class Person {
 
     public void setIdCard(IdCard idCard) {
         this.idCard = idCard;
+    }
+
+    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY)
+    public List<Phone> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
     }
 }
