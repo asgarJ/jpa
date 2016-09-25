@@ -26,7 +26,8 @@ public class App
             entityManager = factory.createEntityManager();
             persistPerson(entityManager);
             persistGeek(entityManager);
-            printResults(entityManager);
+            inheritance(entityManager);
+            relationships(entityManager);
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
             e.printStackTrace();
@@ -80,7 +81,7 @@ public class App
         }
     }
 
-    private void printResults(EntityManager entityManager) {
+    private void inheritance(EntityManager entityManager) {
         try {
             TypedQuery<Person> query = entityManager.createQuery("from Person", Person.class);
             List<Person> persons = query.getResultList();
@@ -93,6 +94,27 @@ public class App
                 LOGGER.info(sb.toString());
             }
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void relationships(EntityManager entityManager) {
+        List<Geek> resultList = entityManager.createQuery("from Geek g where g.favouriteProgrammingLanguage = :fpl")
+                .setParameter("fpl", "Java").getResultList();
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            Project project = new Project();
+            project.setTitle("Java Project");
+            for (Geek geek: resultList) {
+                project.getGeeks().add(geek);
+                geek.getProjects().add(project);
+            }
+            entityManager.persist(project);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction.isActive())
+                transaction.rollback();
             e.printStackTrace();
         }
     }
